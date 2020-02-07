@@ -9,11 +9,19 @@ module.exports = function(io){
     io.on('connection', (socket) => {
         console.log('Socket: '+socket.id+' (connected)'); // printServer: when client is connected
 
+        socket.on('stream',function(image){
+            socket.broadcast.emit('stream',image);
+        });
+        
         // when user join, send confirmation message
         socket.on('join', (data) => {
             console.log(data);
             socket.emit('messages', 'Hello from server');
         });
+
+        // socket.on("welcome", (data) => {
+        //     console.log(data);
+        // });
 
         ////////////////////////////////////////////////////////
         //// Request page set up

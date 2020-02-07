@@ -3,7 +3,7 @@
 ////////////////////////////////////////////////////////
 
 // set port number and hostname
-const port = 8081,
+const port = 8080,
       hostname = "http://localhost";
 
 // global imported libraries
@@ -54,7 +54,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); // parse form data client
 app.use(express.static('/')); // configure express to use public folder
 app.use(cookieParser());
-app.use(session({secret:"Secret Code Don't Tell Anyone", cookie: { maxAge: 30 * 1000 }})); // configure fileupload
+// configure fileupload
+app.use(session({
+    secret:"Secret Code Don't Tell Anyone",
+    cookie: { maxAge: 30 * 1000 },
+    resave: true,
+    saveUninitialized: true
+})); 
 app.use(upload());
 
 
@@ -66,13 +72,14 @@ app.use(upload());
 const {
         getHomePage,
         getLiveStreamPage,
+        getHostPage,
         get404Page
         } = require('./routes/app');
 
 // get
 app.get('/', getHomePage);
-app.get('/liveStream', getLiveStreamPage);
-
+app.get('/live-stream', getLiveStreamPage);
+app.get('/live-stream/host', getHostPage);
 // post
 
 // everything else -> 404
@@ -82,7 +89,7 @@ app.get('*', get404Page);
 // Start Server:
 ////////////////////////////////////////////////////////
 var server = app.listen(port, () => {
-    console.log(hostname+':'+port);
+    console.log("Server is listening on:\t"+hostname+':'+port);
 });
 
 
@@ -90,6 +97,16 @@ var server = app.listen(port, () => {
 // Web-socket:
 ////////////////////////////////////////////////////////
 var io = require('socket.io').listen(server);
+
+// TEST: Socket.io
+// var http = require("http").createServer();
+// var io = require("socket.io")(http);
+// io.on("connection", (socket) => {
+//     socket.emit("welcome", "Welcome my dude")
+// });
+// http.listen(port, () => {
+//     console.log("TEST Server is listening on:\t"+hostname+':'+port);
+// });
 
 // web-socket
 require("./controllers/live-stream/main.js")(io);
