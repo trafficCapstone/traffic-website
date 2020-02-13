@@ -3,14 +3,18 @@
 ////////////////////////////////////////////////////////
 module.exports = {
   // home page
-  getHomePage: (req, res) => {
+  getHomePage: async (req, res) => {
     console.log('getHomePage');
     console.log('User permission: ', req.cookies.webApp);
     //
     var public_path = __dirname.replace('routes', '');
     // get URL variables
     //var PID = req.query.PID;
+
+    const cameras = await Camera.find();
+
     res.render('camera-map', {
+      cameras: JSON.stringify(cameras),
       user: req.cookies.webApp,
     });
   },

@@ -27,6 +27,7 @@ const express = require('express'),
   cookieParser = require('cookie-parser'),
   sqlite3 = require('sqlite3').verbose(),
   upload = require('express-fileupload'),
+  mongoose = require('mongoose'),
   app = express();
 
 global.app_path = path.join(__dirname, 'public');
@@ -42,6 +43,23 @@ global.dataFolder = currentPath + '/data/';
 
 // read files
 //global.colorsJSON = JSON.parse(fs.readFileSync(dataFolder + 'colors.json', 'utf8'));
+
+const { mongo: mongoCredentials } = require('./public/javascripts/credentials');
+const opts = {
+  server: {
+    socketOptions: { keepAlive: 1 },
+  },
+};
+const cameraSchema = new mongoose.Schema({
+  id: Number,
+  name: String,
+  location: [Number],
+});
+
+mongoose.connect(mongoCredentials.development.connectionString, opts, err => {
+  if (err) console.error(err.message);
+});
+global.Camera = mongoose.model('Camera', cameraSchema, 'cameras');
 
 // configure middlewares
 // set
