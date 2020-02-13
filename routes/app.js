@@ -11,7 +11,7 @@ module.exports = {
     // get URL variables
     //var PID = req.query.PID;
 
-    const cameras = await Camera.find();
+    const cameras = await CameraModel.find();
 
     res.render('camera-map', {
       cameras: JSON.stringify(cameras),

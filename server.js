@@ -28,6 +28,7 @@ const express = require('express'),
   sqlite3 = require('sqlite3').verbose(),
   upload = require('express-fileupload'),
   mongoose = require('mongoose'),
+  api = require('./api'),
   app = express();
 
 global.app_path = path.join(__dirname, 'public');
@@ -55,11 +56,17 @@ const cameraSchema = new mongoose.Schema({
   name: String,
   location: [Number],
 });
+const objectSchema = new mongoose.Schema({
+  className: String,
+  timestamp: Number,
+  camera: Number,
+});
 
 mongoose.connect(mongoCredentials.development.connectionString, opts, err => {
   if (err) console.error(err.message);
 });
-global.Camera = mongoose.model('Camera', cameraSchema, 'cameras');
+global.CameraModel = mongoose.model('Camera', cameraSchema, 'cameras');
+global.ObjectModel = mongoose.model('Object', objectSchema, 'objects');
 
 // configure middlewares
 // set
@@ -79,6 +86,7 @@ app.use(
   }),
 ); // configure fileupload
 app.use(upload());
+app.use('/api', api);
 
 ////////////////////////////////////////////////////////
 // Routes for the App:
