@@ -20,7 +20,7 @@ api.post('/objects', async (req, res) => {
 
   // Send 400 if any data values are omitted in body
   if (!className || !timestamp || !camera) {
-    res.sendStatus(400);
+    return res.sendStatus(400);
   }
 
   await new ObjectModel({ className, timestamp, camera }).save();
