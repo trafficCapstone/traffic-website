@@ -31,12 +31,12 @@ const express = require('express'),
     app = express(),
     http = http_module.Server(app);
 
-// global.app_path = path.join(__dirname, 'public');
-// if(global.app_path.includes(":")){
-//     global.app_path = path.join(__dirname, 'public').split(":")[1];
-// }
+global.app_path = path.join(__dirname, 'public');
+if(global.app_path.includes(":")){
+    global.app_path = path.join(__dirname, 'public').split(":")[1];
+}
 
-// console.log(global.app_path);
+console.log(global.app_path);
 
 // get path
 global.currentPath = process.cwd();
