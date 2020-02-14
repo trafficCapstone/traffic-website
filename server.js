@@ -22,12 +22,14 @@ global.readdirAsync = util.promisify(fs.readdir);
 const express = require('express'),
     session = require('express-session'),
     bodyParser = require('body-parser'),
+    http_module = require('http'),
     path = require('path'),
     sys  = require('util'),
     cookieParser = require('cookie-parser'),
     // sqlite3 = require('sqlite3').verbose(),
     upload = require('express-fileupload'),
-    app = express();
+    app = express(),
+    http = http_module.Server(app);
 
 global.app_path = path.join(__dirname, 'public');
 if(global.app_path.includes(":")){
@@ -74,7 +76,7 @@ const {
         getLiveStreamPage,
         getHostPage,
         get404Page
-        } = require('./routes/app');
+        } = require('./routes/app2');
 
 // get
 app.get('/', getHomePage);
@@ -88,10 +90,12 @@ app.get('*', get404Page);
 ////////////////////////////////////////////////////////
 // Start Server:
 ////////////////////////////////////////////////////////
-var server = app.listen(port, () => {
-    console.log("Server is listening on:\t"+hostname+':'+port);
-});
+// var server = app.listen(port, () => {
+//     console.log("Server is listening on:\t"+hostname+':'+port);
+// });
 
+//load page 
+var server = http.listen(app.get('port'), () => {   console.info('==> 🌎  Go to http://localhost:%s', app.get('port')); });
 
 ////////////////////////////////////////////////////////
 // Web-socket:
