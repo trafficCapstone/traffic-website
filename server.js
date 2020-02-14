@@ -3,7 +3,7 @@
 ////////////////////////////////////////////////////////
 
 // set port number and hostname
-const port = 8080,
+const port = 80,
       hostname = "http://localhost";
 
 // global imported libraries
