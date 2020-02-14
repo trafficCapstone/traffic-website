@@ -31,12 +31,12 @@ const express = require('express'),
     app = express(),
     http = http_module.Server(app);
 
-global.app_path = path.join(__dirname, 'public');
-if(global.app_path.includes(":")){
-    global.app_path = path.join(__dirname, 'public').split(":")[1];
-}
+// global.app_path = path.join(__dirname, 'public');
+// if(global.app_path.includes(":")){
+//     global.app_path = path.join(__dirname, 'public').split(":")[1];
+// }
 
-console.log(global.app_path);
+// console.log(global.app_path);
 
 // get path
 global.currentPath = process.cwd();
@@ -55,6 +55,7 @@ app.set('view engine', 'ejs'); // configure template engine
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); // parse form data client
 app.use(express.static('/')); // configure express to use public folder
+app.use('/', express.static(__dirname + '/public/'));
 app.use(cookieParser());
 // configure fileupload
 app.use(session({
