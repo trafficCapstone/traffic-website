@@ -1,16 +1,25 @@
-/* ---------- */
-/* header.ejs */
-/* ---------- */
+/* ------- */
+/* GENERAL */
+/* ------- */
 body {
     font: sans-serif;
     font-family: 'Raleway', sans-serif;
     background-color: hsla(172, 60%, 34%, 0.459);
 }
 
+a {
+    color: white;
+    text-decoration: none;
+}
+
+/* ---------- */
+/* header.ejs */
+/* ---------- */
+
 #navbarResponsive > .navbar-nav > li {
     float: left;
     list-style: none;
-    /* margin: 0 8px; */
+    margin: 0 8px;
 }
 
 
@@ -24,11 +33,13 @@ body {
 #title-banner {
     text-align: center;
     clear: both;
+    color: white;
 }
 
 #left-side-nav,
 #right-side-nav {
     flex: 25%;
+    color: white;
 }
 
 #video-feed {
@@ -41,24 +52,21 @@ body {
 #video-feed > iframe { 
     min-height: 378px;
     min-width: 620px;
-    border: 1px dashed black;
 }
 
 #left-side-nav,
 #right-side-nav {
-    border: 2px solid black;
     background: #77bbb2;
 }
 
 #left-side-nav > ul > li,
 #right-side-nav > ul > li {
-    border: 2px solid black;
     color: #ffffff;
     list-style: none;
-    margin: 40px 0;
+    margin: 20px 0;
 }
 
-#left-side-nav > ul > h2,
-#right-side-nav > ul > h2 {
-    color: #ffffff;
+#left-side-nav > h2,
+#right-side-nav > h2 {
+    margin: 8px 8px;
 }
