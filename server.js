@@ -25,7 +25,7 @@ const express = require('express'),
     path = require('path'),
     sys  = require('util'),
     cookieParser = require('cookie-parser'),
-    sqlite3 = require('sqlite3').verbose(),
+    // sqlite3 = require('sqlite3').verbose(),
     upload = require('express-fileupload'),
     app = express();
 
@@ -109,7 +109,7 @@ var io = require('socket.io').listen(server);
 // });
 
 // web-socket
-require("./controllers/live-stream/main.js")(io);
+require("./live-stream/main.js")(io);
 
 
 
