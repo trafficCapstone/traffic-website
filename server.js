@@ -97,7 +97,7 @@ const { getHomePage, getLiveStreamPage, get404Page } = require('./routes/app');
 
 // get
 app.get('/', getHomePage);
-app.get('/liveStream', getLiveStreamPage);
+app.get('/live-stream', getLiveStreamPage);
 
 // post
 

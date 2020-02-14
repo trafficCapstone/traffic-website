@@ -17,7 +17,7 @@ cameras.forEach(camera => {
     riseOnHover: true,
   });
 
-  const link = window.location.href + 'liveStream?id=' + camera.id;
+  const link = window.location.href + 'live-stream?id=' + camera.id;
   marker
     .bindPopup(
       `<p><strong>id: </strong>${camera.id}</p>
