@@ -4,69 +4,13 @@
 body {
     font: sans-serif;
     font-family: 'Raleway', sans-serif;
-    background-color: hsla(172, 60%, 34%, 0.459);
 }
 
-a {
-    color: white;
-    text-decoration: none;
-}
-
-/* ---------- */
-/* header.ejs */
-/* ---------- */
-
-#navbarResponsive > .navbar-nav > li {
-    float: left;
-    list-style: none;
-    margin: 0 8px;
-}
-
-
-/* --------------- */
-/* live-stream.ejs */
-/* --------------- */
-#live-stream {
-    display: flex;
-}
-
-#title-banner {
+#map-container {
+    height: 550px;
+  }
+  
+.header {
+    margin-top: 20px;
     text-align: center;
-    clear: both;
-    color: white;
-}
-
-#left-side-nav,
-#right-side-nav {
-    flex: 25%;
-    color: white;
-}
-
-#video-feed {
-    flex: 50%;
-    text-align: center;
-    padding: 10px 0;
-    background: #77bbb2;
-}
-
-#video-feed > iframe { 
-    min-height: 378px;
-    min-width: 620px;
-}
-
-#left-side-nav,
-#right-side-nav {
-    background: #77bbb2;
-}
-
-#left-side-nav > ul > li,
-#right-side-nav > ul > li {
-    color: #ffffff;
-    list-style: none;
-    margin: 20px 0;
-}
-
-#left-side-nav > h2,
-#right-side-nav > h2 {
-    margin: 8px 8px;
 }

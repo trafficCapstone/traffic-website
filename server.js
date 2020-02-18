@@ -77,7 +77,7 @@ const {
         getLiveStreamPage,
         getHostPage,
         get404Page
-        } = require('./routes/app2');
+        } = require('./routes/app');
 
 // get
 app.get('/', getHomePage);
