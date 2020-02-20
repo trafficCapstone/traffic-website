@@ -57,8 +57,21 @@ const cameraSchema = new mongoose.Schema({
   location: [Number],
 });
 const objectSchema = new mongoose.Schema({
+  id: Number,
   className: String,
   timestamp: Number,
+  camera: Number,
+  properties: {
+    c: Number,
+    x: Number,
+    y: Number,
+    w: Number,
+    h: Number,
+  },
+});
+const recordSchema = new mongoose.Schema({
+  startTime: Number,
+  endTime: Number,
   camera: Number,
 });
 
@@ -67,6 +80,7 @@ mongoose.connect(mongoCredentials.development.connectionString, opts, err => {
 });
 global.CameraModel = mongoose.model('Camera', cameraSchema, 'cameras');
 global.ObjectModel = mongoose.model('Object', objectSchema, 'objects');
+global.RecordModel = mongoose.model('Record', recordSchema, 'records');
 
 // configure middlewares
 // set

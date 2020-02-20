@@ -16,14 +16,20 @@ api.get('/objects', async (req, res) => {
 });
 
 api.post('/objects', async (req, res) => {
-  const { className, timestamp, camera } = req.body;
+  const { id, className, timestamp, camera, properties } = req.body;
 
   // Send 400 if any data values are omitted in body
-  if (!className || !timestamp || !camera) {
+  if (!id || !className || !timestamp || !camera || !properties) {
     return res.sendStatus(400);
   }
 
-  await new ObjectModel({ className, timestamp, camera }).save();
+  await new ObjectModel({
+    id,
+    className,
+    timestamp,
+    camera,
+    properties,
+  }).save();
 
   res.json(req.body);
 });
