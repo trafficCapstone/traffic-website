@@ -59,13 +59,31 @@
         <a href="live-stream/host">Stream</a>
         <script>
         document.title = "Home";
-        var socket = io();
-        socket.on('stream',function(image){
+        var client = io();
+        client.emit('join', 'hello world from client'); 	
+        client.emit('run_stream', {temp: "something"});
+        client.on('messages', (data) => {
+            console.log('messages: '+data);
+        });
+        client.on('output', (data) => { 	
+            console.log(data);	
+            // $("#result1").append(data); 		
+            // var elem = document.getElementById('left_data'); 		
+            // elem.scrollTop = elem.scrollHeight; 	
+        });
+        client.on('stream',function(image){
             var img = document.getElementById("play");
             img.src = image;
             var log = document.getElementById("logger");
             // $("#logger").text(image);
         });
+        client.on('outputs_1',function(image){
+            var img = document.getElementById("play");
+            img.src = image;
+            var log = document.getElementById("logger");
+            // $("#logger").text(image);
+        });
+        
         </script>
     </div>
     

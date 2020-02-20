@@ -1,9 +1,9 @@
-////////////////////////////////////////////////////////
+﻿////////////////////////////////////////////////////////
 // Set up:
 ////////////////////////////////////////////////////////
 
 // set port number and hostname
-const port = 80,
+const port = 8081,
       hostname = "http://localhost";
 
 // global imported libraries
@@ -102,16 +102,6 @@ var server = http.listen(app.get('port'), () => {   console.info('==> 🌎  Go t
 // Web-socket:
 ////////////////////////////////////////////////////////
 var io = require('socket.io').listen(server);
-
-// TEST: Socket.io
-// var http = require("http").createServer();
-// var io = require("socket.io")(http);
-// io.on("connection", (socket) => {
-//     socket.emit("welcome", "Welcome my dude")
-// });
-// http.listen(port, () => {
-//     console.log("TEST Server is listening on:\t"+hostname+':'+port);
-// });
 
 // web-socket
 require("./live-stream/main.js")(io);

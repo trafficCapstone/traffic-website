@@ -7,7 +7,7 @@
   "repository": "https://github.com/trafficCapstone/traffic-website",
   "license": "ISC",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\"",
     "start": "node server.js"
   },
   "dependencies": {
