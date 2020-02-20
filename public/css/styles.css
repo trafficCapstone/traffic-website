@@ -2,15 +2,15 @@
 /* GENERAL */
 /* ------- */
 body {
-    font: sans-serif;
-    font-family: 'Raleway', sans-serif;
+  font: sans-serif;
+  font-family: 'Raleway', sans-serif;
 }
 
 #map-container {
-    height: 550px;
-  }
-  
+  height: 550px;
+}
+
 .header {
-    margin-top: 20px;
-    text-align: center;
+  margin-top: 20px;
+  text-align: center;
 }
