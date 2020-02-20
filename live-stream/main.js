@@ -9,11 +9,19 @@ module.exports = function(io){
     io.on('connection', (socket) => {
         console.log('Socket: '+socket.id+' (connected)'); // printServer: when client is connected
 
+        socket.on('stream',function(image){
+            socket.broadcast.emit('stream',image);
+        });
+        
         // when user join, send confirmation message
         socket.on('join', (data) => {
             console.log(data);
             socket.emit('messages', 'Hello from server');
         });
+
+        // socket.on("welcome", (data) => {
+        //     console.log(data);
+        // });
 
         ////////////////////////////////////////////////////////
         //// Request page set up
@@ -35,29 +43,24 @@ module.exports = function(io){
         ////////////////////////////////////////////////////////
         //// running demo and send outputs to client
         ////////////////////////////////////////////////////////
-        /*socket.on('outputs_1', (data) => {
+        socket.on('run_stream', (data) => {
             var spawn = require('child_process').spawn;
-            var process = spawn('bash', [
-                './public/bash/outputs.sh',
-                data.project,
-                data.gpu
-            ]);
+            var process = spawn('python', ['./public/python/video.py']);
             var output_1 = '';
             process.stdout.on('data', (output) => {
                 output_1 += output.toString();
             });
             var demo_1 = setInterval(() => {
-                socket.emit('outputs_1_outputs', output_1);
+                socket.emit('output', output_1);
                 output_1 = '';
             }, 5000);
             process.on('close', (code) => {
-                socket.emit('outputs_1_outputs', output_1);
+                socket.emit('output', output_1);
                 output_1 = '';
                 clearInterval(demo_1);
             });
-            //socket.emit('messages', 'START outputs_2');
-            socket.emit('output_1_start', 'START outputs_1');
-        });*/
+            socket.emit('start_stream', 'START output');
+        });
     });
 }
 

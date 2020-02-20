@@ -1,4 +1,4 @@
-////////////////////////////////////////////////////////
+﻿////////////////////////////////////////////////////////
 // Set up:
 ////////////////////////////////////////////////////////
 
@@ -22,12 +22,14 @@ global.readdirAsync = util.promisify(fs.readdir);
 const express = require('express'),
     session = require('express-session'),
     bodyParser = require('body-parser'),
+    http_module = require('http'),
     path = require('path'),
     sys  = require('util'),
     cookieParser = require('cookie-parser'),
-    sqlite3 = require('sqlite3').verbose(),
+    // sqlite3 = require('sqlite3').verbose(),
     upload = require('express-fileupload'),
-    app = express();
+    app = express(),
+    http = http_module.Server(app);
 
 global.app_path = path.join(__dirname, 'public');
 if(global.app_path.includes(":")){
@@ -45,7 +47,7 @@ global.dataFolder = currentPath + '/data/';
 
 // configure middlewares
 // set
-app.set('port', process.env.port || port); // set express to use this port
+app.set('port', process.env.PORT || port); // set express to use this port
 app.set('views', __dirname + '/views'); // set express to look in this folder to render our view
 app.set('view engine', 'ejs'); // configure template engine
 
@@ -53,8 +55,15 @@ app.set('view engine', 'ejs'); // configure template engine
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); // parse form data client
 app.use(express.static('/')); // configure express to use public folder
+app.use('/', express.static(__dirname + '/public/'));
 app.use(cookieParser());
-app.use(session({secret:"Secret Code Don't Tell Anyone", cookie: { maxAge: 30 * 1000 }})); // configure fileupload
+// configure fileupload
+app.use(session({
+    secret:"Secret Code Don't Tell Anyone",
+    cookie: { maxAge: 30 * 1000 },
+    resave: true,
+    saveUninitialized: true
+})); 
 app.use(upload());
 
 
@@ -66,13 +75,14 @@ app.use(upload());
 const {
         getHomePage,
         getLiveStreamPage,
+        getHostPage,
         get404Page
         } = require('./routes/app');
 
 // get
 app.get('/', getHomePage);
-app.get('/liveStream', getLiveStreamPage);
-
+app.get('/live-stream', getLiveStreamPage);
+app.get('/live-stream/host', getHostPage);
 // post
 
 // everything else -> 404
@@ -81,10 +91,12 @@ app.get('*', get404Page);
 ////////////////////////////////////////////////////////
 // Start Server:
 ////////////////////////////////////////////////////////
-var server = app.listen(port, () => {
-    console.log(hostname+':'+port);
-});
+// var server = app.listen(port, () => {
+//     console.log("Server is listening on:\t"+hostname+':'+port);
+// });
 
+//load page 
+var server = http.listen(app.get('port'), () => {   console.info('==> 🌎  Go to http://localhost:%s', app.get('port')); });
 
 ////////////////////////////////////////////////////////
 // Web-socket:
@@ -92,7 +104,7 @@ var server = app.listen(port, () => {
 var io = require('socket.io').listen(server);
 
 // web-socket
-require("./controllers/live-stream/main.js")(io);
+require("./live-stream/main.js")(io);
 
 
 

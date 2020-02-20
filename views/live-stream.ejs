@@ -1,6 +1,101 @@
 <%- include('includes/header') %>
-<div id="live-stream">
-    live-stream
+<!-- 
+<div id="title-banner">
+    <h1>Live Stream</h1>
 </div>
-<%- include('includes/footer') %>
 
+<div id="live-stream">
+
+    <div id="left-side-nav">
+        <h2>Details</h2>
+        <ul>
+            <li>Lorem</li>
+            <li>Ipsum</li>
+            <li>Dolor</li>
+            <li>Sit</li>
+        </ul>
+    </div>
+    
+    <div id="video-feed">
+        <img id="play">
+        <div id="logger"></div>
+    </div>
+
+    <div id="right-side-nav">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d106401.68651611777!2d-122.75666442249981!3d45.5095773948691!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54950b0b7da97427%3A0x1c36b9e6f6d18591!2sPortland%2C%20OR!5e0!3m2!1sen!2sus!4v1581036861458!5m2!1sen!2sus" height="100%" width="100%"  frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+        <h2>Cameras</h2>
+        <ul>
+            <li><a href="?id=1">Camera 1</a></li>
+            <li><a href="?id=2">Camera 2</a></li>
+            <li><a href="?id=3">Camera 3</a></li>
+            <li><a href="?id=4">Camera 4</a></li>
+        </ul>
+    </div>
+
+</div> -->
+
+<div class="row">
+    <div class="col-12">
+        <h1 class="text-center mx-auto">Live Stream</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-2">
+        <h2>Details</h2>
+        <ul>
+            <li>Lorem</li>
+            <li>Ipsum</li>
+            <li>Dolor</li>
+            <li>Sit</li>
+        </ul>
+    </div>
+
+    <div class="col">
+        <div id="video-feed">
+            <img id="play">
+            <div id="logger"></div>
+        </div>
+        <a href="live-stream/host">Stream</a>
+        <script>
+        document.title = "Home";
+        var client = io();
+        client.emit('join', 'hello world from client'); 	
+        client.emit('run_stream', {temp: "something"});
+        client.on('messages', (data) => {
+            console.log('messages: '+data);
+        });
+        client.on('output', (data) => { 	
+            console.log(data);	
+            // $("#result1").append(data); 		
+            // var elem = document.getElementById('left_data'); 		
+            // elem.scrollTop = elem.scrollHeight; 	
+        });
+        client.on('stream',function(image){
+            var img = document.getElementById("play");
+            img.src = image;
+            var log = document.getElementById("logger");
+            // $("#logger").text(image);
+        });
+        client.on('outputs_1',function(image){
+            var img = document.getElementById("play");
+            img.src = image;
+            var log = document.getElementById("logger");
+            // $("#logger").text(image);
+        });
+        
+        </script>
+    </div>
+    
+    <div class="col-2">
+        <h2>Cameras</h2>
+        <ul>
+            <% for( let index = 0; index < 8; index++ ) { %>
+                <li><a href="?id=<%= index+1 %>">Camera <%= index+1 %></a></li>
+            <% } %>
+        </ul>
+    </div>
+</div>
+
+
+<%- include('includes/footer') %>

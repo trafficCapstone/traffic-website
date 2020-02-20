@@ -1,0 +1,16 @@
+/* ------- */
+/* GENERAL */
+/* ------- */
+body {
+    font: sans-serif;
+    font-family: 'Raleway', sans-serif;
+}
+
+#map-container {
+    height: 550px;
+  }
+  
+.header {
+    margin-top: 20px;
+    text-align: center;
+}

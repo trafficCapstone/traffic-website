@@ -2,30 +2,38 @@
 <html>
     <head>
         <!-- Page Info -->
-        <title>Web App</title>
+        <title>Traffic and Pedestrian Tracker</title>
         <meta charset="utf-8">
         <meta name="theme-color" content="#5AB8EB">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" type="image/x-icon" href="images/icon.jpg">
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-NJXGk7R+8gWGBdutmr+/d6XDokLwQhF1U3VA7FhvBDlOq7cNdI69z7NQdnXxcF7k" crossorigin="anonymous">
-        <link rel="stylesheet" href="<%= app_path %>/css/style.css">
+        <link href="http://fonts.googleapis.com/css?family=Alegreya+Sans+SC%7CNixie+One%7CMonda%7CText+Me+One%7CMegrim%7CRaleway" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="<%= app_path %>/libraries/bootstrap-4.0.0-dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="<%= app_path %>/css/styles.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     </head>
     <body>
         <div id="header">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
-                <div class="container">
-                    <a class="navbar-brand" href="/"><i class="fal fa-brain"></i> Labeling Tool</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="container-fluid">
+                    <a class="navbar-brand text-center" href="/">Traffic and Pedestrian Tracker</a>
+                    <ul class="navbar-nav" id="expandable">
+                        <li class="nav-item"><a class="nav-link" href="/"><i class="fal fa-home"></i> Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/live-stream"><i class="fas fa-plus"></i> Live Stream</a></li>
+                        <li class="nav-item">
+                            <form class="form-inline">
+                                <input class="form-control mr-sm-2" type="search" placeholder="Search for Cameras" aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fal fa-search"></i></button>
+                            </form>
+                        </li>
+                    </ul>
+                    
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="expandable" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarResponsive">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item"><a class="nav-link" href="/"><i class="fal fa-home"></i> Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/liveStream"><i class="fas fa-plus"></i> Live Stream</a></li>
-                        </ul>
-                    </div>
                 </div>
             </nav>
         </div>
-        <div id="content">
+        <div class="container">
