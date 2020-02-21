@@ -29,6 +29,7 @@ const express = require('express'),
   // sqlite3 = require('sqlite3').verbose(),
   upload = require('express-fileupload'),
   mongoose = require('mongoose'),
+  cors = require('cors'),
   api = require('./api'),
   app = express(),
   http = http_module.Server(app);
@@ -96,6 +97,7 @@ app.use(bodyParser.json()); // parse form data client
 app.use(express.static('/')); // configure express to use public folder
 app.use('/', express.static(__dirname + '/public/'));
 app.use(cookieParser());
+app.use(cors());
 // configure fileupload
 app.use(
   session({

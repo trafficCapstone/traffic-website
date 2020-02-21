@@ -34,4 +34,19 @@ api.post('/objects', async (req, res) => {
   res.json(req.body);
 });
 
+api.post('/cameras', async (req, res) => {
+  const { id, name, location } = req.body;
+
+  console.log(req.body);
+
+  // Send 400 if any data values are omitted in body
+  if (!id || !name || !location) {
+    return res.sendStatus(400);
+  }
+
+  await new CameraModel({ id, name, location }).save();
+
+  res.json(req.body);
+});
+
 module.exports = api;
