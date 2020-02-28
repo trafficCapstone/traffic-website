@@ -15,6 +15,11 @@ api.get('/objects', async (req, res) => {
   res.json(objects);
 });
 
+api.get('/objects/:id', async (req, res) => {
+  const objects = await ObjectModel.find({ id: req.params.id });
+  res.json(objects);
+});
+
 api.post('/objects', async (req, res) => {
   const { id, className, timestamp, camera, properties } = req.body;
 

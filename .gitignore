@@ -104,7 +104,7 @@ dist
 .tern-port
 
 # Database credentials file
-public/javascripts/credentials.js
+credentials.js
 
 # DS Store files
 .DS_Store

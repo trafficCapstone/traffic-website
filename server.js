@@ -30,7 +30,7 @@ const express = require('express'),
   upload = require('express-fileupload'),
   mongoose = require('mongoose'),
   cors = require('cors'),
-  api = require('./api'),
+  api = require('./routes/api'),
   app = express(),
   http = http_module.Server(app);
 
@@ -48,7 +48,7 @@ global.dataFolder = currentPath + '/data/';
 // read files
 //global.colorsJSON = JSON.parse(fs.readFileSync(dataFolder + 'colors.json', 'utf8'));
 
-const { mongo: mongoCredentials } = require('./public/javascripts/credentials');
+const { mongo: mongoCredentials } = require('./credentials');
 const opts = {
   server: {
     socketOptions: { keepAlive: 1 },
@@ -119,14 +119,15 @@ const {
   getHomePage,
   getLiveStreamPage,
   getHostPage,
+  getDataPage,
   get404Page,
 } = require('./routes/app');
 
 // get
 app.get('/', getHomePage);
+app.get('/data-visualization', getDataPage);
 app.get('/live-stream', getLiveStreamPage);
 app.get('/live-stream/host', getHostPage);
-// post
 
 // everything else -> 404
 app.get('*', get404Page);
@@ -149,4 +150,4 @@ var server = http.listen(app.get('port'), () => {
 var io = require('socket.io').listen(server);
 
 // web-socket
-require('./live-stream/main.js')(io);
+require('./controllers/live-stream/main.js')(io);

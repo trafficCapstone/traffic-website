@@ -45,6 +45,18 @@ module.exports = {
     });
   },
 
+  getDataPage: (req, res) => {
+    console.log('getDataPage');
+    console.log('User permission: ', req.cookies.webApp);
+    //
+    var public_path = __dirname.replace('routes', '');
+    // get URL variables
+    //var PID = req.query.PID;
+    res.render('data-visualization', {
+      user: req.cookies.webApp,
+    });
+  },
+
   // 404 page
   get404Page: (req, res) => {
     console.log('get404Page');

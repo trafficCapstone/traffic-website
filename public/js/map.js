@@ -11,6 +11,15 @@ L.tileLayer(
   },
 ).addTo(map);
 
+const heatMap = L.heatLayer(
+  cameras.map(camera => {
+    return [camera.location[0], camera.location[1], 1];
+  }),
+  { radius: 50 },
+);
+
+heatMap.addTo(map);
+
 cameras.forEach(camera => {
   const marker = L.marker(camera.location, {
     title: camera.name,
