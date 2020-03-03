@@ -26,9 +26,9 @@ const express = require('express'),
   path = require('path'),
   sys = require('util'),
   cookieParser = require('cookie-parser'),
-  // sqlite3 = require('sqlite3').verbose(),
   upload = require('express-fileupload'),
-  mongoose = require('mongoose'),
+  mainDatabase = require('mongoose'),
+  trafficDatabase = require('mongoose'),
   cors = require('cors'),
   api = require('./routes/api'),
   app = express(),
@@ -45,21 +45,22 @@ console.log(global.app_path);
 global.currentPath = process.cwd();
 global.dataFolder = currentPath + '/data/';
 
-// read files
-//global.colorsJSON = JSON.parse(fs.readFileSync(dataFolder + 'colors.json', 'utf8'));
+const {
+  main: mainCredentials,
+  trafficSpeed: trafficCredentials,
+} = require('./credentials');
 
-const { mongo: mongoCredentials } = require('./credentials');
 const opts = {
   server: {
     socketOptions: { keepAlive: 1 },
   },
 };
-const cameraSchema = new mongoose.Schema({
+const cameraSchema = new mainDatabase.Schema({
   id: Number,
   name: String,
   location: [Number],
 });
-const objectSchema = new mongoose.Schema({
+const objectSchema = new mainDatabase.Schema({
   id: Number,
   className: String,
   timestamp: Number,
@@ -72,18 +73,41 @@ const objectSchema = new mongoose.Schema({
     h: Number,
   },
 });
-const recordSchema = new mongoose.Schema({
+const recordSchema = new mainDatabase.Schema({
   startTime: Number,
   endTime: Number,
   camera: Number,
 });
 
-mongoose.connect(mongoCredentials.development.connectionString, opts, err => {
-  if (err) console.error(err.message);
+const trafficSchema = new trafficDatabase.Schema({
+  id: Number,
+  location: [Number, Number],
+  name: String,
+  volume: Number,
+  startTime: Number,
+  endTime: Number,
 });
-global.CameraModel = mongoose.model('Camera', cameraSchema, 'cameras');
-global.ObjectModel = mongoose.model('Object', objectSchema, 'objects');
-global.RecordModel = mongoose.model('Record', recordSchema, 'records');
+
+mainDatabase.connect(
+  mainCredentials.development.connectionString,
+  opts,
+  err => {
+    if (err) console.error(err.message);
+  },
+);
+
+trafficDatabase.connect(
+  trafficCredentials.development.connectionString,
+  opts,
+  err => {
+    if (err) console.error(err.message);
+  },
+);
+
+global.CameraModel = mainDatabase.model('Camera', cameraSchema, 'cameras');
+global.ObjectModel = mainDatabase.model('Object', objectSchema, 'objects');
+global.RecordModel = mainDatabase.model('Record', recordSchema, 'records');
+global.TrafficModel = trafficDatabase.model('Traffic', trafficSchema, 'data');
 
 // configure middlewares
 // set

@@ -45,14 +45,18 @@ module.exports = {
     });
   },
 
-  getDataPage: (req, res) => {
+  getDataPage: async (req, res) => {
     console.log('getDataPage');
     console.log('User permission: ', req.cookies.webApp);
     //
     var public_path = __dirname.replace('routes', '');
     // get URL variables
     //var PID = req.query.PID;
+
+    const trafficData = await TrafficModel.find();
+
     res.render('data-visualization', {
+      trafficData: JSON.stringify(trafficData),
       user: req.cookies.webApp,
     });
   },

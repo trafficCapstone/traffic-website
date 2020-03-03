@@ -42,14 +42,37 @@ api.post('/objects', async (req, res) => {
 api.post('/cameras', async (req, res) => {
   const { id, name, location } = req.body;
 
-  console.log(req.body);
-
   // Send 400 if any data values are omitted in body
   if (!id || !name || !location) {
     return res.sendStatus(400);
   }
 
   await new CameraModel({ id, name, location }).save();
+
+  res.json(req.body);
+});
+
+api.get('/traffic', async (req, res) => {
+  const objects = await TrafficModel.find();
+  res.json(objects);
+});
+
+api.post('/traffic', async (req, res) => {
+  const { id, name, location, volume, startTime, endTime } = req.body;
+
+  // Send 400 if any data values are omitted in body
+  if (!id || !name || !location || !volume || !startTime || !endTime) {
+    return res.sendStatus(400);
+  }
+
+  await new TrafficModel({
+    id,
+    name,
+    location,
+    volume,
+    startTime,
+    endTime,
+  }).save();
 
   res.json(req.body);
 });

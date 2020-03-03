@@ -11,29 +11,29 @@ L.tileLayer(
   },
 ).addTo(map);
 
-const heatMap = L.heatLayer(
-  cameras.map(camera => {
-    return [camera.location[0], camera.location[1], 1];
-  }),
-  { radius: 50 },
-);
+const heat = L.heatLayer(
+  trafficData.map(data => [
+    data.location[0],
+    data.location[1],
+    data.volume / 2500,
+  ]),
+  { radius: 25 },
+).addTo(map);
 
-heatMap.addTo(map);
-
-cameras.forEach(camera => {
-  const marker = L.marker(camera.location, {
-    title: camera.name,
-    riseOnHover: true,
-  });
-
-  const link = window.location.href + 'live-stream?id=' + camera.id;
-  marker
-    .bindPopup(
-      `<p><strong>id: </strong>${camera.id}</p>
-      <p><strong>name: </strong>${camera.name}</p>
-      <p><a href="${link}">Link</a></p>`,
-    )
-    .openPopup();
-
-  marker.addTo(map);
-});
+// cameras.forEach(camera => {
+//   const marker = L.marker(camera.location, {
+//     title: camera.name,
+//     riseOnHover: true,
+//   });
+//
+//   const link = window.location.href + 'live-stream?id=' + camera.id;
+//   marker
+//     .bindPopup(
+//       `<p><strong>id: </strong>${camera.id}</p>
+//       <p><strong>name: </strong>${camera.name}</p>
+//       <p><a href="${link}">Link</a></p>`,
+//     )
+//     .openPopup();
+//
+//   marker.addTo(map);
+// });
