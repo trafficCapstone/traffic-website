@@ -6,8 +6,8 @@ body {
   font-family: 'Raleway', sans-serif;
 }
 
-#map-container,
-#heatmap {
+#camera-map-container,
+#heatmap-container {
   height: 550px;
 }
 
