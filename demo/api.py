@@ -42,7 +42,7 @@ def post_data():
             }
 
             res = requests.post(host + 'traffic', data=payload)
-            # print('Adding ' + str(id) + ' to database. Status: ' + str(res.status_code))
+            print('Adding ' + str(id) + ' to database. Status: ' + str(res.status_code))
 
 
 def main():

@@ -1,6 +1,8 @@
-////////////////////////////////////////////////////////
-// App - Routes
-////////////////////////////////////////////////////////
+const CameraModel = require('../models/camera');
+const ObjectModel = require('../models/object');
+const RecordModel = require('../models/record');
+const TrafficModel = require('../models/traffic');
+
 module.exports = {
   // home page
   getHomePage: async (req, res) => {
