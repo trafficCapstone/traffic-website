@@ -8,6 +8,16 @@ api.get('/', (req, res) => {
 
 api.get('/cameras', async (req, res) => {
   const cameras = await global.CameraModel.find();
+
+  const query = req.query.q;
+  if (query) {
+    return res.json(
+      cameras.filter(camera =>
+        camera.name.toLowerCase().includes(query.toLowerCase()),
+      ),
+    );
+  }
+
   res.json(cameras);
 });
 
