@@ -22,7 +22,18 @@ api.get('/cameras', async (req, res) => {
 });
 
 api.get('/objects', async (req, res) => {
-  const objects = await global.ObjectModel.find();
+  let objects = await global.ObjectModel.find();
+
+  const start = req.query.start;
+  if (start) {
+    objects = objects.filter(object => object.timestamp >= Number(start));
+  }
+
+  const end = req.query.end;
+  if (end) {
+    objects = objects.filter(object => object.timestamp <= Number(end));
+  }
+
   res.json(objects);
 });
 
