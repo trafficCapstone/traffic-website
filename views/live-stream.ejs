@@ -9,33 +9,29 @@
 <div class="row">
     <div class="col-md-2">
       <table class="table table-hover">
-        <thead class="thead-light">
+        <thead>
           <tr>
-            <th scope="col">Type</th>
+            <th scope="col">Class</th>
             <th scope="col">Conf.</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Person</td>
-            <td>95%</td>
-          </tr>
-          <tr>
-            <td>Vehicle</td>
-            <td>87%</td>
-          </tr>
-          <tr>
-            <td>Vehicle</td>
-            <td>64%</td>
-          </tr>
-          <tr>
-            <td>Person</td>
-            <td>92%</td>
-          </tr>
-          <tr>
-            <td>Vehicle</td>
-            <td>74%</td>
-          </tr>
+          <% objects.forEach(function(object, index) {
+            const getRandomColor = () => {
+              var letters = '0123456789ABCDEF';
+              var color = '#';
+              for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+              }
+              return color + "40";
+            }
+            const color = getRandomColor();
+          %>
+            <tr style="background-color: <%= color %>">
+              <td><%= object.className %></td>
+              <td><%= Math.round(1000 * object.properties.c) / 10 %>%</td>
+            </tr>
+          <% }); %>
         </tbody>
       </table>
     </div>

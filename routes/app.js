@@ -37,9 +37,11 @@ module.exports = {
     const cameras = await global.CameraModel.find();
     const id = req.query.id || 1;
     const camera = await global.CameraModel.findOne({ id });
+    const objects = await global.ObjectModel.find();
 
     res.render('live-stream', {
       cameras,
+      objects,
       target: camera,
       user: req.cookies.webApp,
     });
