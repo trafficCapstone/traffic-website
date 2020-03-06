@@ -35,10 +35,12 @@ module.exports = {
     console.log('User permission: ', req.cookies.webApp);
 
     const cameras = await global.CameraModel.find();
-    console.log(cameras);
+    const id = req.query.id || 1;
+    const camera = await global.CameraModel.findOne({ id });
 
     res.render('live-stream', {
-      cameras: cameras,
+      cameras,
+      target: camera,
       user: req.cookies.webApp,
     });
   },

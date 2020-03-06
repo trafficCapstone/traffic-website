@@ -2,67 +2,86 @@
 
 <div class="row">
     <div class="col-12">
-        <h3 class="header"><strong>Live Stream</strong></h3>
+        <h3 class="header"><strong><%= target.name %></strong></h3>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-2">
-        <h4>Details</h4>
-        <ul>
-            <li>Lorem</li>
-            <li>Ipsum</li>
-            <li>Dolor</li>
-            <li>Sit</li>
-        </ul>
+    <div class="col-md-2">
+      <table class="table table-hover">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Type</th>
+            <th scope="col">Conf.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Person</td>
+            <td>95%</td>
+          </tr>
+          <tr>
+            <td>Vehicle</td>
+            <td>87%</td>
+          </tr>
+          <tr>
+            <td>Vehicle</td>
+            <td>64%</td>
+          </tr>
+          <tr>
+            <td>Person</td>
+            <td>92%</td>
+          </tr>
+          <tr>
+            <td>Vehicle</td>
+            <td>74%</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
-    <div class="col">
+    <div class="col-md-8">
         <div id="video-feed">
-            <img id="play">
-            <div id="logger"></div>
+            <img class="ml-auto mr-auto" id="play">
         </div>
+        <!-- <h5><%= target.name %></h5> -->
 
         <script>
-
-        document.title = "Home";
-        var client = io();
-        client.emit('join', 'hello world from client');
-        client.emit('run_stream', {temp: "something"});
-        client.on('messages', (data) => {
-            console.log('messages: '+data);
-        });
-        client.on('output', (data) => {
-            console.log(data);
-            // $("#result1").append(data);
-            // var elem = document.getElementById('left_data');
-            // elem.scrollTop = elem.scrollHeight;
-        });
-        client.on('stream',function(image){
-            var img = document.getElementById("play");
-            img.src = image;
-            var log = document.getElementById("logger");
-            // $("#logger").text(image);
-        });
-        client.on('outputs_1',function(image){
-            var img = document.getElementById("play");
-            img.src = image;
-            var log = document.getElementById("logger");
-            // $("#logger").text(image);
-        });
-
+          document.title = "Home";
+          var client = io();
+          client.emit('join', 'hello world from client');
+          client.emit('run_stream', {temp: "something"});
+          client.on('messages', (data) => {
+              console.log('messages: '+data);
+          });
+          client.on('output', (data) => {
+              console.log(data);
+              // $("#result1").append(data);
+              // var elem = document.getElementById('left_data');
+              // elem.scrollTop = elem.scrollHeight;
+          });
+          client.on('stream',function(image){
+              var img = document.getElementById("play");
+              img.src = image;
+              var log = document.getElementById("logger");
+              // $("#logger").text(image);
+          });
+          client.on('outputs_1',function(image){
+              var img = document.getElementById("play");
+              img.src = image;
+              var log = document.getElementById("logger");
+              // $("#logger").text(image);
+          });
         </script>
     </div>
 
-    <div class="col-2">
-        <h4>Cameras</h4>
-        <ul>
+    <div class="col-md-2">
+        <div class="list-group">
           <% cameras.forEach(function(camera, index) { %>
-              <li><a href="?id=<%= index + 1 %>"><%= camera.name %></a></li>
+            <a href="/live-stream?id=<%= index + 1 %>" class="list-group-item list-group-item-action <%- (target.id === camera.id) ? 'active' : ''%>"><%= camera.name %></a>
           <% }); %>
-        </ul>
+        </div>
     </div>
 </div>
-
 
 <%- include('includes/footer') %>
