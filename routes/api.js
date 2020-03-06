@@ -1,10 +1,5 @@
 const express = require('express');
 
-const CameraModel = require('../models/camera');
-const ObjectModel = require('../models/object');
-const RecordModel = require('../models/record');
-const TrafficModel = require('../models/traffic');
-
 const api = express.Router();
 
 api.get('/', (req, res) => {
@@ -12,17 +7,17 @@ api.get('/', (req, res) => {
 });
 
 api.get('/cameras', async (req, res) => {
-  const cameras = await CameraModel.find();
+  const cameras = await global.CameraModel.find();
   res.json(cameras);
 });
 
 api.get('/objects', async (req, res) => {
-  const objects = await ObjectModel.find();
+  const objects = await global.ObjectModel.find();
   res.json(objects);
 });
 
 api.get('/objects/:id', async (req, res) => {
-  const objects = await ObjectModel.find({ id: req.params.id });
+  const objects = await global.ObjectModel.find({ id: req.params.id });
   res.json(objects);
 });
 
@@ -34,7 +29,7 @@ api.post('/objects', async (req, res) => {
     return res.sendStatus(400);
   }
 
-  await new ObjectModel({
+  await new global.ObjectModel({
     id,
     className,
     timestamp,
@@ -53,13 +48,13 @@ api.post('/cameras', async (req, res) => {
     return res.sendStatus(400);
   }
 
-  await new CameraModel({ id, name, location }).save();
+  await new global.CameraModel({ id, name, location }).save();
 
   res.json(req.body);
 });
 
 api.get('/traffic', async (req, res) => {
-  const objects = await TrafficModel.find();
+  const objects = await global.TrafficModel.find();
   res.json(objects);
 });
 
@@ -71,7 +66,7 @@ api.post('/traffic', async (req, res) => {
     return res.sendStatus(400);
   }
 
-  await new TrafficModel({
+  await new global.TrafficModel({
     id,
     name,
     location,

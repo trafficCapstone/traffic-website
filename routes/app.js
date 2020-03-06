@@ -1,8 +1,3 @@
-const CameraModel = require('../models/camera');
-const ObjectModel = require('../models/object');
-const RecordModel = require('../models/record');
-const TrafficModel = require('../models/traffic');
-
 module.exports = {
   // home page
   getHomePage: async (req, res) => {
@@ -13,7 +8,7 @@ module.exports = {
     // get URL variables
     //var PID = req.query.PID;
 
-    const cameras = await CameraModel.find();
+    const cameras = await global.CameraModel.find();
 
     res.render('camera-map', {
       cameras: JSON.stringify(cameras),
@@ -55,7 +50,9 @@ module.exports = {
     // get URL variables
     //var PID = req.query.PID;
 
-    const trafficData = await TrafficModel.find();
+    const trafficData = await global.TrafficModel.find();
+
+    console.log(trafficData);
 
     res.render('data-visualization', {
       trafficData: JSON.stringify(trafficData),

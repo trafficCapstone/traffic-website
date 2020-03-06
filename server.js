@@ -15,7 +15,10 @@ const bodyParser = require('body-parser'),
 
 const {
   main: {
-    development: { connectionString },
+    development: { connectionString: mainConnectionString },
+  },
+  traffic: {
+    development: { connectionString: trafficConnectionString },
   },
 } = require('./credentials');
 const api = require('./routes/api');
@@ -26,6 +29,10 @@ const {
   getDataPage,
   get404Page,
 } = require('./routes/app');
+const registerCameraModel = require('./models/camera'),
+  registerObjectModel = require('./models/object'),
+  registerRecordModel = require('./models/record'),
+  registerTrafficModel = require('./models/traffic');
 
 // Set port number and hostname
 const PORT = 8081;
@@ -89,16 +96,26 @@ app.get('*', get404Page);
 ////////////////////////////////////////////////////////
 
 const opts = {
-  server: {
-    socketOptions: { keepAlive: 1 },
-  },
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };
 
-mongoose.connect(connectionString, opts, err => {
+const mainConn = mongoose.createConnection(mainConnectionString, opts, err => {
   if (err) console.error(err.message);
 });
+
+const trafficConn = mongoose.createConnection(
+  trafficConnectionString,
+  opts,
+  err => {
+    if (err) console.error(err.message);
+  },
+);
+
+registerCameraModel(mainConn);
+registerObjectModel(mainConn);
+registerRecordModel(mainConn);
+registerTrafficModel(trafficConn);
 
 ////////////////////////////////////////////////////////
 // Start Server:

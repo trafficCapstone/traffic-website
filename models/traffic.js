@@ -9,6 +9,6 @@ const trafficSchema = new mongoose.Schema({
   endTime: Number,
 });
 
-const TrafficModel = mongoose.model('Traffic', trafficSchema, 'traffic');
-
-module.exports = TrafficModel;
+module.exports = conn => {
+  global.TrafficModel = conn.model('Traffic', trafficSchema, 'data');
+};

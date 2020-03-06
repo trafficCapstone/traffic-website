@@ -6,6 +6,6 @@ const cameraSchema = new mongoose.Schema({
   location: [Number],
 });
 
-const CameraModel = mongoose.model('Camera', cameraSchema, 'cameras');
-
-module.exports = CameraModel;
+module.exports = conn => {
+  global.CameraModel = conn.model('Camera', cameraSchema, 'cameras');
+};
