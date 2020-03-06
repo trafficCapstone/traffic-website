@@ -52,8 +52,6 @@ module.exports = {
 
     const trafficData = await global.TrafficModel.find();
 
-    console.log(trafficData);
-
     res.render('data-visualization', {
       trafficData: JSON.stringify(trafficData),
       user: req.cookies.webApp,

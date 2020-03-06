@@ -48,8 +48,6 @@ if (global.app_path.includes(':')) {
   global.app_path = path.join(__dirname, 'public').split(':')[1];
 }
 
-console.log(global.app_path);
-
 // get path
 global.currentPath = process.cwd();
 global.dataFolder = currentPath + '/data/';
