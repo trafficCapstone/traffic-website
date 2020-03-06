@@ -30,14 +30,15 @@ module.exports = {
   },
 
   // LiveStream page
-  getLiveStreamPage: (req, res) => {
+  getLiveStreamPage: async (req, res) => {
     console.log('getLiveStreamPage');
     console.log('User permission: ', req.cookies.webApp);
-    //
-    var public_path = __dirname.replace('routes', '');
-    // get URL variables
-    //var PID = req.query.PID;
+
+    const cameras = await global.CameraModel.find();
+    console.log(cameras);
+
     res.render('live-stream', {
+      cameras: cameras,
       user: req.cookies.webApp,
     });
   },
