@@ -4,6 +4,9 @@
 
 <div class="container">
 
+  <p id="range-text"></p>
+  <input type="range" style="width: 300px;" id="range-slider"></input>
+
   <div class="col-12 row chart">
 
     <h4 class="col-12 text-center mt-4">Object Heatmap</h4>
@@ -44,5 +47,6 @@ const trafficData = <%- trafficData %>;
 <script src="<%= app_path %>/js/data.js"></script>
 <script src="<%= app_path %>/js/histogram.js"></script>
 <script src="<%= app_path %>/js/donutChart.js"></script>
+<script src="<%= app_path %>/js/slider.js"></script>
 
 <%- include('includes/footer') %>
