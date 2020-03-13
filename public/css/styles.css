@@ -25,3 +25,7 @@ body {
 #play {
   display: block;
 }
+
+.chart {
+  margin-bottom: 20px;
+}
