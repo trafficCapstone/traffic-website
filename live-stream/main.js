@@ -5,23 +5,23 @@
 // WebSocket
 ////////////////////////////////////////////////////////
 module.exports = function(io){
+
     // socket connection to run the demo
     io.on('connection', (socket) => {
         console.log('Socket: '+socket.id+' (connected)'); // printServer: when client is connected
 
-        socket.on('stream',function(image){
-            socket.broadcast.emit('stream',image);
-        });
-        
-        // when user join, send confirmation message
-        socket.on('join', (data) => {
-            console.log(data);
-            socket.emit('messages', 'Hello from server');
-        });
-
-        // socket.on("welcome", (data) => {
-        //     console.log(data);
+        // socket.on('stream',function(image){
+        //     socket.broadcast.emit('stream',image);
         // });
+        
+        // socket.on('frame', (data) => {
+        //     // console.log(data);
+        //     socket.emit("stream-frame", data.toString());
+        // });
+
+        socket.on("welcome", (data) => {
+            console.log(data);
+        });
 
         ////////////////////////////////////////////////////////
         //// Request page set up
@@ -44,20 +44,18 @@ module.exports = function(io){
         //// running demo and send outputs to client
         ////////////////////////////////////////////////////////
         socket.on('run_stream', (data) => {
+            // Run object detection python script.
             var spawn = require('child_process').spawn;
-            var process = spawn('python', ['./public/python/video.py']);
-            var output_1 = '';
-            process.stdout.on('data', (output) => {
-                output_1 += output.toString();
+            var process = spawn('/home/r-mutt/miniconda3/bin/python', ['/home/r-mutt/Github/real-time-object-detection/cam_demo.py']);
+            // var process = spawn('/home/r-mutt/miniconda3/bin/python', ['/home/r-mutt/Github/real-time-object-detection/test_sockets.py']);
+            
+            process.stdout.on("data", (data) => {
+                console.log(data.toString().length);
+                socket.emit("stream-frame", data.toString());
             });
-            var demo_1 = setInterval(() => {
-                socket.emit('output', output_1);
-                output_1 = '';
-            }, 5000);
+
             process.on('close', (code) => {
-                socket.emit('output', output_1);
-                output_1 = '';
-                clearInterval(demo_1);
+                socket.emit('output', "DONE");
             });
             socket.emit('start_stream', 'START output');
         });
