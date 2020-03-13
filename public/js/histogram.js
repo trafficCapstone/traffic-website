@@ -1,5 +1,5 @@
 (() => {
-  const height = 500;
+  const height = 400;
   const width = 800;
   const margin = { top: 20, right: 20, bottom: 30, left: 40 };
 

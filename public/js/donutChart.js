@@ -1,5 +1,5 @@
 (() => {
-  const height = 500;
+  const height = 400;
   const width = 800;
 
   const pie = d3
@@ -14,7 +14,7 @@
     const radius = Math.min(width, height) / 2;
     return d3
       .arc()
-      .innerRadius(radius * 0.67)
+      .innerRadius(radius * 0.6)
       .outerRadius(radius - 1);
   };
 
