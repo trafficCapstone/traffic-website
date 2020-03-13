@@ -16,10 +16,11 @@
 
   </div>
 
-  <div class="col-12 row" style="background-color: yellow; height: 200px;">
+  <div class="col-12 row">
 
     <h4 class="col-12 text-center mt-4">Number of objects</h4>
-    <div class="col-12" style="background-color: red; height: 100px;"></div>
+
+    <div id="histogram-container" class="col-12"></div>
 
   </div>
 
@@ -38,5 +39,8 @@ const trafficData = <%- trafficData %>;
 
 </script>
 
+<script src="<%= app_path %>/js/heatmap.js"></script>
+<script src="<%= app_path %>/js/data.js"></script>
+<script src="<%= app_path %>/js/histogram.js"></script>
 
 <%- include('includes/footer') %>
