@@ -13,6 +13,7 @@ const bodyParser = require('body-parser'),
   mongoose = require('mongoose'),
   path = require('path');
 
+// credentials
 const {
   main: {
     development: { connectionString: mainConnectionString },
@@ -21,14 +22,20 @@ const {
     development: { connectionString: trafficConnectionString },
   },
 } = require('./credentials');
+
+// api
 const api = require('./routes/api');
+
+// pages
 const {
   getHomePage,
   getLiveStreamPage,
   getHostPage,
   getDataPage,
   get404Page,
-} = require('./routes/app');
+} = require('./routes/pages');
+
+// models
 const registerCameraModel = require('./models/camera'),
   registerObjectModel = require('./models/object'),
   registerRecordModel = require('./models/record'),
@@ -119,7 +126,7 @@ registerTrafficModel(trafficConn);
 // Start Server:
 ////////////////////////////////////////////////////////
 const server = http.listen(app.get('port'), () => {
-  console.info(`==> 🌎  Go to http://localhost:${app.get('port')}`);
+  console.info(`==> 🌎  Go to ` + HOST + `:${app.get('port')}`);
 });
 
 ////////////////////////////////////////////////////////
