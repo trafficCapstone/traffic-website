@@ -3,14 +3,11 @@ module.exports = {
   getHomePage: async (req, res) => {
     console.log('getHomePage');
     console.log('User permission: ', req.cookies.webApp);
-    //
-    var public_path = __dirname.replace('routes', '');
-    // get URL variables
-    //var PID = req.query.PID;
 
     const cameras = await global.CameraModel.find();
 
     res.render('camera-map', {
+      title: 'camera-map',
       cameras: JSON.stringify(cameras),
       user: req.cookies.webApp,
     });
@@ -20,11 +17,9 @@ module.exports = {
   getHostPage: (req, res) => {
     console.log('getHostPage');
     console.log('User permission: ', req.cookies.webApp);
-    //
-    var public_path = __dirname.replace('routes', '');
-    // get URL variables
-    //var PID = req.query.PID;
+
     res.render('host', {
+      title: 'host',
       user: req.cookies.webApp,
     });
   },
@@ -40,9 +35,11 @@ module.exports = {
     const objects = await global.ObjectModel.find();
 
     res.render('live-stream', {
+      title: 'live-stream',
       cameras,
       objects,
       target: camera,
+      classes: global.Classes,
       user: req.cookies.webApp,
     });
   },
@@ -50,14 +47,11 @@ module.exports = {
   getDataPage: async (req, res) => {
     console.log('getDataPage');
     console.log('User permission: ', req.cookies.webApp);
-    //
-    var public_path = __dirname.replace('routes', '');
-    // get URL variables
-    //var PID = req.query.PID;
 
     const trafficData = await global.TrafficModel.find();
 
     res.render('data-visualization', {
+      title: 'data-visualization',
       trafficData: JSON.stringify(trafficData),
       user: req.cookies.webApp,
     });
@@ -67,11 +61,9 @@ module.exports = {
   get404Page: (req, res) => {
     console.log('get404Page');
     console.log('User permission: ', req.cookies.webApp);
-    //
-    var public_path = __dirname.replace('routes', '');
-    // get URL variables
-    //var PID = req.query.PID;
+    
     res.render('404', {
+      title: '404',
       user: req.cookies.webApp,
     });
   },

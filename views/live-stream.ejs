@@ -8,7 +8,7 @@
 
 <div class="row">
     <div class="col-md-2">
-      <table class="table table-hover">
+      <table id="class-conf" class="table table-hover">
         <thead>
           <tr>
             <th scope="col">Class</th>
@@ -16,22 +16,6 @@
           </tr>
         </thead>
         <tbody>
-          <% objects.forEach(function(object, index) {
-            const getRandomColor = () => {
-              var letters = '0123456789ABCDEF';
-              var color = '#';
-              for (var i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
-              }
-              return color + "40";
-            }
-            const color = getRandomColor();
-          %>
-            <tr style="background-color: <%= color %>">
-              <td><%= object.className %></td>
-              <td><%= Math.round(1000 * object.properties.c) / 10 %>%</td>
-            </tr>
-          <% }); %>
         </tbody>
       </table>
     </div>
@@ -40,35 +24,6 @@
         <div id="video-feed">
             <img class="ml-auto mr-auto" id="play">
         </div>
-        <!-- <h5><%= target.name %></h5> -->
-
-        <script>
-          document.title = "Home";
-          var client = io();
-          client.emit('join', 'hello world from client');
-          client.emit('run_stream', {temp: "something"});
-          client.on('messages', (data) => {
-              console.log('messages: '+data);
-          });
-          client.on('output', (data) => {
-              console.log(data);
-              // $("#result1").append(data);
-              // var elem = document.getElementById('left_data');
-              // elem.scrollTop = elem.scrollHeight;
-          });
-          client.on('stream',function(image){
-              var img = document.getElementById("play");
-              img.src = image;
-              var log = document.getElementById("logger");
-              // $("#logger").text(image);
-          });
-          client.on('outputs_1',function(image){
-              var img = document.getElementById("play");
-              img.src = image;
-              var log = document.getElementById("logger");
-              // $("#logger").text(image);
-          });
-        </script>
     </div>
 
     <div class="col-md-2">
