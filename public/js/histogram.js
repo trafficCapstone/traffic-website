@@ -71,7 +71,6 @@ const updateHistogram = startTime => {
     }
     return acc;
   }, []);
-  console.log({ filteredData });
 
   const newBins = d3
     .histogram()

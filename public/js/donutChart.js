@@ -18,8 +18,6 @@
     return acc;
   }, []);
 
-  console.log({ data });
-
   const arcs = pie(data);
 
   const arc = () => {
