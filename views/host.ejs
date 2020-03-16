@@ -1,4 +1,4 @@
-<%- include('includes/header') %>
+<%- include('includes/header', { page: 'stream' }) %>
 
 <video src="" id="video" style="width:680px;" autoplay="true"></video>
 <!-- The canvas get the images of the camera that are transmitted. -->
@@ -50,7 +50,6 @@ function loadFail()
 
 function viewVideo(video,context)
 {
-  console.log(video);
   context.drawImage(video,0,0,context.width, context.height);
   //to transmit images as a string, webp is a format similar to png
   socket.emit('stream',canvas.toDataURL('image/png'));

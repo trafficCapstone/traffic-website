@@ -6,11 +6,22 @@ body {
   font-family: 'Raleway', sans-serif;
 }
 
-#map-container {
+#camera-map-container,
+#heatmap-container {
   height: 550px;
 }
 
 .header {
   margin-top: 20px;
   text-align: center;
+}
+
+#play,
+#video-feed {
+  background-color: black;
+  height: 30rem;
+}
+
+#play {
+  display: block;
 }

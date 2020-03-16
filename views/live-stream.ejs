@@ -1,71 +1,38 @@
-<%- include('includes/header') %>
+<%- include('includes/header', { page: 'stream' }) %>
 
 <div class="row">
     <div class="col-12">
-        <h1 class="text-center mx-auto">Live Stream</h1>
+        <h3 class="header"><strong><%= target.name %></strong></h3>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-2">
-        <h2>Details</h2>
-        <ul>
-            <li>Lorem</li>
-            <li>Ipsum</li>
-            <li>Dolor</li>
-            <li>Sit</li>
-        </ul>
+    <div class="col-md-2">
+      <table id="class-conf" class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Class</th>
+            <th scope="col">Conf.</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
     </div>
 
-    <div class="col">
+    <div class="col-md-8">
         <div id="video-feed">
-            <img id="play">
-            <div id="logger"></div>
+            <img class="ml-auto mr-auto" id="play">
         </div>
-        <a href="live-stream/host">Stream</a>
-        <script>
-        document.title = "Home";
-        // var client = io.connect("http://localhost:8081");
-        var client = io();
-        // console.log(client);
-        client.emit('join', 'hello world from client'); 	
-        client.emit('run_stream', {temp: "something"});
-        client.on('messages', (data) => {
-            console.log('messages: '+data);
-        });
-        client.on('stream-frame', (data) => { 	
-            // console.log(data);
-            // console.log();
-            utf8_encoded = data.toString('utf8');
-            // console.log(utf8_encoded.toString());
-            png_encoded = "data:image/jpeg;base64, " + utf8_encoded.substring(3, utf8_encoded.length-1);
-            // console.log(png_encoded.toString());
-            var img = document.getElementById("play");
-            img.src = png_encoded;
-            var log = document.getElementById("logger");
-            // $("#result1").append(data);
-            // var elem = document.getElementById('left_data');
-            // elem.scrollTop = elem.scrollHeight;
-        });
-        client.on('stream',function(image){
-            // console.log(image);
-            var img = document.getElementById("play");
-            img.src = image;
-            var log = document.getElementById("logger");
-        });
-        
-        </script>
     </div>
-    
-    <div class="col-2">
-        <h2>Cameras</h2>
-        <ul>
-            <% for( let index = 0; index < 8; index++ ) { %>
-                <li><a href="?id=<%= index+1 %>">Camera <%= index+1 %></a></li>
-            <% } %>
-        </ul>
+
+    <div class="col-md-2">
+        <div class="list-group">
+          <% cameras.forEach(function(camera, index) { %>
+            <a href="/live-stream?id=<%= index + 1 %>" class="list-group-item list-group-item-action <%- (target.id === camera.id) ? 'active' : ''%>"><%= camera.name %></a>
+          <% }); %>
+        </div>
     </div>
 </div>
-
 
 <%- include('includes/footer') %>

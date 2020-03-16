@@ -8,9 +8,10 @@
   "license": "ISC",
   "scripts": {
     "test": "echo \"Error: no test specified\"",
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "dependencies": {
+    "@ionic/app-scripts": "^3.1.6",
     "archiver": "^3.1.1",
     "bluebird": "^3.5.3",
     "body-parser": "^1.18.3",
@@ -27,17 +28,17 @@
     "moment": "^2.24.0",
     "mongoose": "^5.8.11",
     "nedb": "^1.8.0",
-    "oppressor": "0.0.1",
     "phantomjs-prebuilt": "^2.1.16",
-    "pngjs": "^3.4.0",
     "popper.js": "^1.14.7",
     "probe-image-size": "^5.0.0",
     "req-flash": "0.0.3",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
-    "stream-handbook": "^1.0.0",
     "unzip": "^0.1.11",
     "unzip-stream": "^0.3.0",
     "unzipper": "^0.10.5"
+  },
+  "devDependencies": {
+    "ws": "3.3.2"
   }
 }

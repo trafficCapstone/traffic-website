@@ -1,0 +1,42 @@
+<%- include('includes/header', { page: 'data' }) %>
+
+<h3 class="header"><strong>Data Visualization</strong></h3>
+
+<div class="container">
+
+  <div class="col-12 row">
+
+    <h4 class="col-12 text-center mt-4">Object Heatmap</h4>
+
+    <div class="col-12">
+
+      <div id="heatmap-container"></div>
+
+    </div>
+
+  </div>
+
+  <div class="col-12 row" style="background-color: yellow; height: 200px;">
+
+    <h4 class="col-12 text-center mt-4">Number of objects</h4>
+    <div class="col-12" style="background-color: red; height: 100px;"></div>
+
+  </div>
+
+  <div class="col-12 row" style="background-color: blue; height: 200px;">
+
+    <h4 class="col-12 text-center mt-4">Average Velocity</h4>
+    <div class="col-12" style="background-color: lightblue; height: 100px;"></div>
+
+  </div>
+
+</div>
+
+<script type="text/javascript">
+
+const trafficData = <%- trafficData %>;
+
+</script>
+
+
+<%- include('includes/footer') %>

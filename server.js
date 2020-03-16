@@ -2,92 +2,66 @@
 // Set up:
 ////////////////////////////////////////////////////////
 
-// set port number and hostname
-const port = 8081,
-  hostname = 'http://localhost';
-
-// global imported libraries
-global.fs = require('fs');
-global.unzip = require('unzip-stream');
-global.glob = require('glob');
-global.probe = require('probe-image-size');
-global.csv = require('csvtojson');
-global.rimraf = require('./public/libraries/rimraf');
-global.util = require('util');
-global.archiver = require('archiver');
-
-global.readdirAsync = util.promisify(fs.readdir);
-
 // local imported libraries
-const express = require('express'),
-  session = require('express-session'),
-  bodyParser = require('body-parser'),
-  http_module = require('http'),
-  path = require('path'),
-  sys = require('util'),
+const bodyParser = require('body-parser'),
   cookieParser = require('cookie-parser'),
-  // sqlite3 = require('sqlite3').verbose(),
-  upload = require('express-fileupload'),
-  mongoose = require('mongoose'),
   cors = require('cors'),
-  api = require('./api'),
-  app = express(),
-  http = http_module.Server(app);
+  express = require('express'),
+  upload = require('express-fileupload'),
+  session = require('express-session'),
+  http_module = require('http'),
+  mongoose = require('mongoose'),
+  path = require('path');
 
+// credentials
+const {
+  main: {
+    development: { connectionString: mainConnectionString },
+  },
+  traffic: {
+    development: { connectionString: trafficConnectionString },
+  },
+} = require('./public/javascripts/credentials');
+
+// api
+const api = require('./routes/api');
+
+// pages
+const {
+  getHomePage,
+  getLiveStreamPage,
+  getHostPage,
+  getDataPage,
+  get404Page,
+} = require('./routes/pages');
+
+// modals
+const registerCameraModel = require('./models/camera'),
+  registerObjectModel = require('./models/object'),
+  registerRecordModel = require('./models/record'),
+  registerTrafficModel = require('./models/traffic');
+
+// Set port number and hostname
+const PORT = 8081;
+const HOST = 'http://localhost';
+
+// Initialize express app and http server
+const app = express();
+const http = http_module.Server(app);
+
+// Set base path globally
 global.app_path = path.join(__dirname, 'public');
 if (global.app_path.includes(':')) {
   global.app_path = path.join(__dirname, 'public').split(':')[1];
 }
 
-console.log(global.app_path);
-
 // get path
 global.currentPath = process.cwd();
 global.dataFolder = currentPath + '/data/';
 
-// read files
-//global.colorsJSON = JSON.parse(fs.readFileSync(dataFolder + 'colors.json', 'utf8'));
-
-const { mongo: mongoCredentials } = require('./public/javascripts/credentials');
-const opts = {
-  server: {
-    socketOptions: { keepAlive: 1 },
-  },
-};
-const cameraSchema = new mongoose.Schema({
-  id: Number,
-  name: String,
-  location: [Number],
-});
-const objectSchema = new mongoose.Schema({
-  id: Number,
-  className: String,
-  timestamp: Number,
-  camera: Number,
-  properties: {
-    c: Number,
-    x: Number,
-    y: Number,
-    w: Number,
-    h: Number,
-  },
-});
-const recordSchema = new mongoose.Schema({
-  startTime: Number,
-  endTime: Number,
-  camera: Number,
-});
-
-mongoose.connect(mongoCredentials.development.connectionString, opts, err => {
-  if (err) console.error(err.message);
-});
-global.CameraModel = mongoose.model('Camera', cameraSchema, 'cameras');
-global.ObjectModel = mongoose.model('Object', objectSchema, 'objects');
-global.RecordModel = mongoose.model('Record', recordSchema, 'records');
-
 // configure middlewares
 // set
-app.set('port', process.env.PORT || port); // set express to use this port
+app.set('port', process.env.PORT || PORT); // set express to use this port
 app.set('views', __dirname + '/views'); // set express to look in this folder to render our view
 app.set('view engine', 'ejs'); // configure template engine
 
@@ -98,7 +72,6 @@ app.use(express.static('/')); // configure express to use public folder
 app.use('/', express.static(__dirname + '/public/'));
 app.use(cookieParser());
 app.use(cors());
-// configure fileupload
 app.use(
   session({
     secret: "Secret Code Don't Tell Anyone",
@@ -114,39 +87,52 @@ app.use('/api', api);
 // Routes for the App:
 ////////////////////////////////////////////////////////
 
-// define routes:
-const {
-  getHomePage,
-  getLiveStreamPage,
-  getHostPage,
-  get404Page,
-} = require('./routes/app');
-
 // get
 app.get('/', getHomePage);
+app.get('/data', getDataPage);
 app.get('/live-stream', getLiveStreamPage);
 app.get('/live-stream/host', getHostPage);
-// post
 
 // everything else -> 404
 app.get('*', get404Page);
 
 ////////////////////////////////////////////////////////
+// Database Setup:
+////////////////////////////////////////////////////////
+
+const opts = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
+
+const mainConn = mongoose.createConnection(mainConnectionString, opts, err => {
+  if (err) console.error(err.message);
+});
+
+const trafficConn = mongoose.createConnection(
+  trafficConnectionString,
+  opts,
+  err => {
+    if (err) console.error(err.message);
+  },
+);
+
+registerCameraModel(mainConn);
+registerObjectModel(mainConn);
+registerRecordModel(mainConn);
+registerTrafficModel(trafficConn);
+
+////////////////////////////////////////////////////////
 // Start Server:
 ////////////////////////////////////////////////////////
-// var server = app.listen(port, () => {
-//     console.log("Server is listening on:\t"+hostname+':'+port);
-// });
-
-//load page
-var server = http.listen(app.get('port'), () => {
-  console.info('==> 🌎  Go to http://localhost:%s', app.get('port'));
+const server = http.listen(app.get('port'), () => {
+  console.info(`==> 🌎  Go to `+HOST+`:${app.get('port')}`);
 });
 
 ////////////////////////////////////////////////////////
 // Web-socket:
 ////////////////////////////////////////////////////////
-var io = require('socket.io').listen(server);
+const io = require('socket.io').listen(server);
 
 // web-socket
-require('./live-stream/main.js')(io);
+require('./controllers/live-stream/main.js')(io);
