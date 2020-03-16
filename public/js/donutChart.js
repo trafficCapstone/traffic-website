@@ -8,7 +8,19 @@
     .sort(null)
     .value(d => d.value);
 
-  const arcs = pie(donutChartData);
+  const data = objectData.reduce((acc, { className }) => {
+    const slice = acc.find(({ name }) => name === className);
+    if (slice) {
+      slice.value++;
+    } else {
+      acc.push({ name: className, value: 1 });
+    }
+    return acc;
+  }, []);
+
+  console.log({ data });
+
+  const arcs = pie(data);
 
   const arc = () => {
     const radius = Math.min(width, height) / 2;
@@ -20,13 +32,10 @@
 
   const color = d3
     .scaleOrdinal()
-    .domain(donutChartData.map(d => d.name))
+    .domain(data.map(d => d.name))
     .range(
       d3
-        .quantize(
-          t => d3.interpolateSpectral(t * 0.8 + 0.1),
-          donutChartData.length,
-        )
+        .quantize(t => d3.interpolateSpectral(t * 0.8 + 0.1), data.length)
         .reverse(),
     );
 

@@ -49,10 +49,12 @@ module.exports = {
     console.log('User permission: ', req.cookies.webApp);
 
     const trafficData = await global.TrafficModel.find();
+    const objectData = await global.ObjectModel.find();
 
     res.render('data-visualization', {
       title: 'data-visualization',
       trafficData: JSON.stringify(trafficData),
+      objectData: JSON.stringify(objectData),
       user: req.cookies.webApp,
     });
   },
@@ -61,7 +63,7 @@ module.exports = {
   get404Page: (req, res) => {
     console.log('get404Page');
     console.log('User permission: ', req.cookies.webApp);
-    
+
     res.render('404', {
       title: '404',
       user: req.cookies.webApp,

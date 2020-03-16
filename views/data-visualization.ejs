@@ -2,10 +2,10 @@
 
 <h3 class="header"><strong>Data Visualization</strong></h3>
 
-<div class="container">
+<div class="container" style="text-align: center;">
 
   <p id="range-text"></p>
-  <input type="range" style="width: 300px;" id="range-slider"></input>
+  <input type="range" style="width: 400px;" id="range-slider"></input>
 
   <div class="col-12 row chart">
 
@@ -18,6 +18,8 @@
     </div>
 
   </div>
+
+  <p>Data from <a href="http://gis-pdx.opendata.arcgis.com/datasets/traffic-speed-counts">City of Portland, Oregon Open Data</a></p>
 
   <div class="col-12 row chart">
 
@@ -40,6 +42,7 @@
 <script type="text/javascript">
 
 const trafficData = <%- trafficData %>;
+const objectData = <%- objectData %>;
 
 </script>
 
