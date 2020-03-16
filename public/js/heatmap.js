@@ -11,11 +11,17 @@ L.tileLayer(
   },
 ).addTo(map);
 
-const heat = L.heatLayer(
-  trafficData.map(data => [
-    data.location[0],
-    data.location[1],
-    data.volume / 2500,
-  ]),
-  { radius: 25 },
-).addTo(map);
+const heat = L.heatLayer([], { radius: 25 });
+heat.addTo(map);
+
+const setHeatmap = startTime => {
+  heat.setLatLngs(
+    trafficData.reduce((acc, item) => {
+      const midTime = Math.round((item.startTime + item.endTime) / 2);
+      if (midTime > startTime) {
+        acc.push([item.location[0], item.location[1], item.volume / 2500]);
+      }
+      return acc;
+    }, []),
+  );
+};

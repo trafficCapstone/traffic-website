@@ -135,4 +135,4 @@ const server = http.listen(app.get('port'), () => {
 const io = require('socket.io').listen(server);
 
 // web-socket
-require('./controllers/live-stream/main.js')(io);
+// require('./controllers/live-stream/main.js')(io);
