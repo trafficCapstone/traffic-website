@@ -4,6 +4,7 @@ const cameraSchema = new mongoose.Schema({
   id: Number,
   name: String,
   location: [Number],
+  path: String,
 });
 
 module.exports = conn => {

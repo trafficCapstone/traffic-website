@@ -30,7 +30,7 @@ module.exports = {
     console.log('User permission: ', req.cookies.webApp);
 
     const cameras = await global.CameraModel.find();
-    const id = req.query.id || 1;
+    const id = req.query.id || cameras[0].id;
     const camera = await global.CameraModel.findOne({ id });
     const objects = await global.ObjectModel.find();
 

@@ -29,7 +29,7 @@
     <div class="col-md-2">
         <div class="list-group">
           <% cameras.forEach(function(camera, index) { %>
-            <a href="/live-stream?id=<%= index + 1 %>" class="list-group-item list-group-item-action <%- (target.id === camera.id) ? 'active' : ''%>"><%= camera.name %></a>
+            <a href="/live-stream?id=<%= camera.id %>" class="list-group-item list-group-item-action <%- (target.id === camera.id) ? 'active' : ''%>"><%= camera.name %></a>
           <% }); %>
         </div>
     </div>
