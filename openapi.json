@@ -51,6 +51,21 @@
             }
           }
         }
+      },
+      "post": {
+        "summary": "Create new camera",
+        "operationId": "addCamera",
+        "tags": ["camera"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "camera",
+            "description": "The camera to create",
+            "schema": {
+              "$ref": "#/components/schemas/Camera"
+            }
+          }
+        ]
       }
     },
     "/objects": {
@@ -103,6 +118,21 @@
             }
           }
         }
+      },
+      "post": {
+        "summary": "Create new object",
+        "operationId": "addObject",
+        "tags": ["object"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "object",
+            "description": "The object to create",
+            "schema": {
+              "$ref": "#/components/schemas/Object"
+            }
+          }
+        ]
       }
     },
     "/objects/{id}": {
@@ -164,6 +194,21 @@
             }
           }
         }
+      },
+      "post": {
+        "summary": "Create new mock traffic data point",
+        "operationId": "addTrafficData",
+        "tags": ["traffic"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "trafficData",
+            "description": "The traffic data to create",
+            "schema": {
+              "$ref": "#/components/schemas/Traffic"
+            }
+          }
+        ]
       }
     }
   },
@@ -177,9 +222,6 @@
             "items": {
               "type": "number"
             }
-          },
-          "_id": {
-            "type": "string"
           },
           "id": {
             "type": "integer"
@@ -195,9 +237,6 @@
       "Object": {
         "type": "object",
         "properties": {
-          "_id": {
-            "type": "string"
-          },
           "id": {
             "type": "integer"
           },
@@ -235,9 +274,6 @@
       "Traffic": {
         "type": "object",
         "properties": {
-          "_id": {
-            "type": "string"
-          },
           "id": {
             "type": "integer"
           },
