@@ -105,6 +105,35 @@
         }
       }
     },
+    "/objects/{id}": {
+      "get": {
+        "summary": "Get an object by ID",
+        "operationId": "getObject",
+        "tags": ["object"],
+        "responses": {
+          "200": {
+            "description": "Object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Object"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/traffic": {
       "get": {
         "summary": "Get details for all mock traffic count data",
