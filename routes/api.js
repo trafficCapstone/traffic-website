@@ -1,6 +1,10 @@
 const express = require('express');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDoc = require('../openapi.json');
 
 const api = express.Router();
+
+api.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 api.get('/', (req, res) => {
   res.send('API home page');
