@@ -2,11 +2,10 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Data from './Data';
+import Error from './Error';
 import Header from './Header';
 import Home from './Home';
 import LiveStream from './LiveStream';
-
-import './App.css';
 
 function App() {
   return (
@@ -23,6 +22,9 @@ function App() {
             </Route>
             <Route path="/live-stream">
               <LiveStream />
+            </Route>
+            <Route>
+              <Error />
             </Route>
           </Switch>
         </div>
