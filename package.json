@@ -8,6 +8,7 @@
   "license": "ISC",
   "scripts": {
     "test": "echo \"Error: no test specified\"",
+    "prestart": "cd frontend && npm run build",
     "start": "nodemon server.js"
   },
   "dependencies": {

@@ -81,6 +81,8 @@ app.use(
   }),
 );
 app.use(upload());
+
+app.use(express.static(path.join(__dirname, 'frontend', 'build')));
 app.use('/api', api);
 
 ////////////////////////////////////////////////////////
@@ -88,7 +90,9 @@ app.use('/api', api);
 ////////////////////////////////////////////////////////
 
 // get
-app.get('/', getHomePage);
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
+});
 app.get('/data', getDataPage);
 app.get('/live-stream', getLiveStreamPage);
 app.get('/live-stream/host', getHostPage);
@@ -105,14 +109,18 @@ const opts = {
   useUnifiedTopology: true,
 };
 
-const mainConn = mongoose.createConnection(mainConnectionString, opts, err => {
-  if (err) console.error(err.message);
-});
+const mainConn = mongoose.createConnection(
+  mainConnectionString,
+  opts,
+  (err) => {
+    if (err) console.error(err.message);
+  },
+);
 
 const trafficConn = mongoose.createConnection(
   trafficConnectionString,
   opts,
-  err => {
+  (err) => {
     if (err) console.error(err.message);
   },
 );
