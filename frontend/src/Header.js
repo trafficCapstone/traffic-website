@@ -24,7 +24,7 @@ export default () => (
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
               <Link to="/" className="nav-link">
-                <i class="far fa-video"></i> Map
+                <i class="far fa-map-marked-alt"></i> Map
               </Link>
             </li>
             <li class="nav-item">
@@ -34,7 +34,7 @@ export default () => (
             </li>
             <li class="nav-item">
               <Link to="/data" className="nav-link">
-                <i class="far fa-video"></i> Data Visualization
+                <i class="fal fa-analytics"></i> Data Visualization
               </Link>
             </li>
           </ul>

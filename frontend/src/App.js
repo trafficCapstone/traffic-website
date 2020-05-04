@@ -9,27 +9,25 @@ import LiveStream from './LiveStream';
 
 function App() {
   return (
-    <>
-      <Router>
-        <Header />
-        <div class="container-fluid">
-          <Switch>
-            <Route path="/">
-              <Home />
-            </Route>
-            <Route path="/data">
-              <Data />
-            </Route>
-            <Route path="/live-stream">
-              <LiveStream />
-            </Route>
-            <Route>
-              <Error />
-            </Route>
-          </Switch>
-        </div>
-      </Router>
-    </>
+    <Router>
+      <Header />
+      <div class="container-fluid">
+        <Switch>
+          <Route path="/">
+            <Home />
+          </Route>
+          <Route path="/data">
+            <Data />
+          </Route>
+          <Route path="/live-stream">
+            <LiveStream />
+          </Route>
+          <Route>
+            <Error />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
