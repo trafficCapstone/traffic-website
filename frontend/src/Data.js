@@ -1,6 +1,8 @@
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 
+import Spinner from './Spinner';
+
 const ranges = [
   ['Past 5 Years', 157788000],
   ['Past Year', 31536000],
@@ -259,20 +261,7 @@ export default () => {
   }, []);
 
   if (loading) {
-    return (
-      <div
-        style={{
-          display: 'flex',
-          height: '100vh',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <div class="spinner-border" role="status">
-          <span class="sr-only">Loading...</span>
-        </div>
-      </div>
-    );
+    return <Spinner />;
   }
 
   return (

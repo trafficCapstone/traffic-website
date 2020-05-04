@@ -20,11 +20,11 @@ function App() {
           <Route path="/data">
             <Data />
           </Route>
-          <Route path="/live-stream">
-            <LiveStream />
-          </Route>
           <Route path="/live-stream/host">
             <Host />
+          </Route>
+          <Route path="/live-stream/:id?">
+            <LiveStream />
           </Route>
           <Route>
             <Error />
