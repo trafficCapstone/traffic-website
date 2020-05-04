@@ -53,8 +53,6 @@ global.dataFolder = currentPath + '/data/';
 // configure middlewares
 // set
 app.set('port', process.env.PORT || PORT); // set express to use this port
-app.set('views', __dirname + '/views'); // set express to look in this folder to render our view
-app.set('view engine', 'ejs'); // configure template engine
 
 // use
 app.use(bodyParser.urlencoded({ extended: false }));
