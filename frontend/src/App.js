@@ -5,6 +5,7 @@ import Data from './Data';
 import Error from './Error';
 import Header from './Header';
 import Home from './Home';
+import Host from './Host';
 import LiveStream from './LiveStream';
 
 function App() {
@@ -21,6 +22,9 @@ function App() {
           </Route>
           <Route path="/live-stream">
             <LiveStream />
+          </Route>
+          <Route path="/live-stream/host">
+            <Host />
           </Route>
           <Route>
             <Error />

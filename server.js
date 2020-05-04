@@ -59,8 +59,7 @@ app.set('view engine', 'ejs'); // configure template engine
 // use
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); // parse form data client
-app.use(express.static('/')); // configure express to use public folder
-app.use('/', express.static(__dirname + '/public/'));
+app.use('/static', express.static(__dirname + '/frontend/public'));
 app.use(cookieParser());
 app.use(cors());
 app.use(
