@@ -26,15 +26,6 @@ const {
 // api
 const api = require('./routes/api');
 
-// pages
-const {
-  getHomePage,
-  getLiveStreamPage,
-  getHostPage,
-  getDataPage,
-  get404Page,
-} = require('./routes/pages');
-
 // models
 const registerCameraModel = require('./models/camera'),
   registerObjectModel = require('./models/object'),
@@ -90,15 +81,9 @@ app.use('/api', api);
 ////////////////////////////////////////////////////////
 
 // get
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
 });
-app.get('/data', getDataPage);
-app.get('/live-stream', getLiveStreamPage);
-app.get('/live-stream/host', getHostPage);
-
-// everything else -> 404
-app.get('*', get404Page);
 
 ////////////////////////////////////////////////////////
 // Database Setup:

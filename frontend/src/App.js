@@ -13,7 +13,7 @@ function App() {
       <Header />
       <div class="container-fluid">
         <Switch>
-          <Route path="/">
+          <Route exact path="/">
             <Home />
           </Route>
           <Route path="/data">
