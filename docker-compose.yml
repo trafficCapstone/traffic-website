@@ -1,0 +1,28 @@
+version: '3'
+services:
+  api:
+    build: .
+    restart: always
+    ports:
+      - 8000:8000
+    environment:
+      MONGO_HOST: mongo
+      MONGO_USER: user
+      MONGO_PASSWORD: capstone2020
+      MONGO_DB_NAME: main
+
+  mongo:
+    image: mongo:latest
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - traffic-mongo-vol:/data/db
+      - ./db/:/docker-entrypoint-initdb.d
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: user
+      MONGO_INITDB_ROOT_PASSWORD: capstone2020
+      MONGO_INITDB_DATABASE: main
+
+volumes:
+  traffic-mongo-vol: {}

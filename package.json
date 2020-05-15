@@ -9,7 +9,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\"",
     "prestart": "cd frontend && npm run build",
-    "start": "nodemon server.js"
+    "start": "node server.js",
+    "postinstall": "cd frontend && ../node_modules/.bin/yarn"
   },
   "dependencies": {
     "archiver": "^3.1.1",
@@ -36,6 +37,7 @@
     "socket.io-client": "^2.3.0",
     "unzip": "^0.1.11",
     "unzip-stream": "^0.3.0",
-    "unzipper": "^0.10.5"
+    "unzipper": "^0.10.5",
+    "yarn": "^1.22.4"
   }
 }

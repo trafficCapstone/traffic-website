@@ -14,6 +14,4 @@ const objectSchema = new mongoose.Schema({
   },
 });
 
-module.exports = conn => {
-  global.ObjectModel = conn.model('Object', objectSchema, 'objects');
-};
+module.exports = mongoose.model('Object', objectSchema, 'objects');
