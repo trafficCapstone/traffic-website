@@ -55,7 +55,7 @@ const mongoHost = process.env.MONGO_HOST || 'localhost';
 const mongoPort = process.env.MONGO_PORT || 27017;
 const mongoUser = process.env.MONGO_USER;
 const mongoPassword = process.env.MONGO_PASSWORD;
-const mongoDBName = process.env.MONGO_DB_NAME;
+const mongoDBName = process.env.MONGO_DATABASE;
 
 // Build Mongo URIs
 const mongoURL = `mongodb://${mongoUser}:${mongoPassword}@${mongoHost}:${mongoPort}/${mongoDBName}`;

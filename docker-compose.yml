@@ -7,9 +7,9 @@ services:
       - 8000:8000
     environment:
       MONGO_HOST: mongo
-      MONGO_USER: user
-      MONGO_PASSWORD: capstone2020
-      MONGO_DB_NAME: main
+      MONGO_USER: ${MONGO_USER}
+      MONGO_PASSWORD: ${MONGO_PASSWORD}
+      MONGO_DB_NAME: ${MONGO_DATABASE}
 
   mongo:
     image: mongo:latest
@@ -20,9 +20,9 @@ services:
       - traffic-mongo-vol:/data/db
       - ./db/:/docker-entrypoint-initdb.d
     environment:
-      MONGO_INITDB_ROOT_USERNAME: user
-      MONGO_INITDB_ROOT_PASSWORD: capstone2020
-      MONGO_INITDB_DATABASE: main
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_DATABASE}
 
 volumes:
   traffic-mongo-vol: {}
