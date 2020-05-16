@@ -10,6 +10,7 @@
     "test": "echo \"Error: no test specified\"",
     "prestart": "cd frontend && npm run build",
     "start": "node server.js",
+    "format": "node_modules/.bin/prettier --config ./.prettierrc --write ./server.js ./routes/*.js ./models/*.js",
     "postinstall": "cd frontend && ../node_modules/.bin/yarn"
   },
   "dependencies": {
