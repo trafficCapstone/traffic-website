@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////
 // WebSocket
 ////////////////////////////////////////////////////////
-module.exports = function(io) {
+module.exports = function (io) {
   ////////////////////////////////////////////////////////
   //// running demo and send outputs to client
   ////////////////////////////////////////////////////////
@@ -12,26 +12,24 @@ module.exports = function(io) {
   ]);
 
   // socket connection to run the demo
-  io.on('connection', socket => {
+  io.on('connection', (socket) => {
     console.log('Socket: ' + socket.id + ' (connected)');
 
-    process.on('close', code => {
+    process.on('close', (code) => {
       socket.emit('output', 'DONE');
     });
     socket.emit('start_stream', 'START output');
 
-    socket.on('frame-to-server', data => {
-      //console.log(data.toString().length);
+    socket.on('frame-to-server', (data) => {
       socket.broadcast.emit('frame-from-server', data.toString());
     });
-    socket.on('objects-to-server', data => {
-      // console.log(data.toString());
-      //console.log(data.toString().length);
+    socket.on('objects-to-server', (data) => {
       socket.broadcast.emit('objects-from-server', JSON.parse(data.toString()));
     });
-    socket.on('welcome', data => {
+    socket.on('welcome', (data) => {
       console.log(data);
     });
+
     ////////////////////////////////////////////////////////
     //// running demo and send outputs to client
     ////////////////////////////////////////////////////////
