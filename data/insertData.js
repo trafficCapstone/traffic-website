@@ -9,15 +9,15 @@ const URI = 'http://localhost:8000/api';
 
 (async () => {
   console.log('Adding cameras to database...');
-  // await Promise.all(
-  //   cameras.map((camera) => axios.post(`${URI}/cameras`, camera)),
-  // );
+  await Promise.all(
+    cameras.map((camera) => axios.post(`${URI}/cameras`, camera)),
+  );
   console.log('  Done!');
 
   console.log('Adding objects to database...');
-  // await Promise.all(
-  //   objects.map((object) => axios.post(`${URI}/objects`, object)),
-  // );
+  await Promise.all(
+    objects.map((object) => axios.post(`${URI}/objects`, object)),
+  );
   console.log('  Done!');
 
   console.log('Adding demo data to database...');
