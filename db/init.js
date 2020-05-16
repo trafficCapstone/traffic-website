@@ -1,5 +1,5 @@
 db.createUser({
-  user: 'user',
+  user: 'root',
   pwd: 'capstone2020',
   roles: [{ role: 'readWrite', db: 'main' }],
 });

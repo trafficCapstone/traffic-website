@@ -9,7 +9,7 @@ services:
       MONGO_HOST: mongo
       MONGO_USER: ${MONGO_USER}
       MONGO_PASSWORD: ${MONGO_PASSWORD}
-      MONGO_DB_NAME: ${MONGO_DATABASE}
+      MONGO_DATABASE: ${MONGO_DATABASE}
 
   mongo:
     image: mongo:latest
