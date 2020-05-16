@@ -108,3 +108,5 @@ credentials.js
 
 # DS Store files
 .DS_Store
+
+frontend/build/

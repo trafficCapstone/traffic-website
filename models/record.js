@@ -6,6 +6,4 @@ const recordSchema = new mongoose.Schema({
   camera: Number,
 });
 
-module.exports = conn => {
-  global.RecordModel = conn.model('Record', recordSchema, 'records');
-};
+module.exports = mongoose.model('Record', recordSchema, 'records');

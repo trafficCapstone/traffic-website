@@ -12,7 +12,7 @@ api.get('/cameras', async (req, res) => {
   const query = req.query.q;
   if (query) {
     return res.json(
-      cameras.filter(camera =>
+      cameras.filter((camera) =>
         camera.name.toLowerCase().includes(query.toLowerCase()),
       ),
     );
@@ -24,15 +24,15 @@ api.get('/cameras', async (req, res) => {
 api.get('/objects', async (req, res) => {
   let objects = await global.ObjectModel.find();
 
-  const start = req.query.start;
-  if (start) {
-    objects = objects.filter(object => object.timestamp >= Number(start));
-  }
-
-  const end = req.query.end;
-  if (end) {
-    objects = objects.filter(object => object.timestamp <= Number(end));
-  }
+  // const start = req.query.start;
+  // if (start) {
+  //   objects = objects.filter(object => object.timestamp >= Number(start));
+  // }
+  //
+  // const end = req.query.end;
+  // if (end) {
+  //   objects = objects.filter(object => object.timestamp <= Number(end));
+  // }
 
   res.json(objects);
 });
