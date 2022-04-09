@@ -29,7 +29,7 @@
     "express-session": "^1.16.1",
     "glob": "^7.1.5",
     "http": "0.0.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "mongoose": "^5.8.11",
     "nedb": "^1.8.0",
     "phantomjs-prebuilt": "^2.1.16",
